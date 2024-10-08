@@ -11,7 +11,7 @@ export class ApiRickMortyService {
     private http: HttpClient
   ) { }
 
-  getCharacters() {
-    return this.http.get<GetCharactersResponse>('https://rickandmortyapi.com/api/character');
+  getCharactersByPage(page: number) {
+    return this.http.get<GetCharactersResponse>(`https://rickandmortyapi.com/api/character?page=${page}`);
   }
 }

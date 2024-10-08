@@ -27,6 +27,18 @@
           </ion-label>
         </ion-item>
       </ion-list>
+
+      <ion-button [disabled]="!info?.prev" (click)="prevPage()">
+        Previous
+      </ion-button>
+      <ion-button [disabled]="!info?.next" (click)="nextPage()">
+        Next
+      </ion-button>
+
+      <div *ngIf="info">
+        <p>Page {{ currentPage }} of {{ info.pages }}</p>
+      </div>
+
     </ion-card-content>
   </ion-card>
 </ion-content>

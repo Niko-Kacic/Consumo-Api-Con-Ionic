@@ -12,19 +12,34 @@ export class HomePage implements OnInit {
 
   info!: Info;
   characters: Character[] = [];
+  currentPage: number = 1;
 
   constructor(
     private api: ApiRickMortyService
   ) {}
 
   ngOnInit(): void {
-    const obs = this.api.getCharacters();
+    this.loadCharacters(this.currentPage);
+  }
 
-    obs.subscribe((data) => {
-      data.info;
+  loadCharacters(page: number) {
+    this.api.getCharactersByPage(page).subscribe((data) => {
+      this.info = data.info;
       this.characters = data.results;
-      console.log(data);
     });
   }
 
+  nextPage() {
+    if (this.info.next) {
+      this.currentPage++;
+      this.loadCharacters(this.currentPage);
+    }
+  }
+
+  prevPage() {
+    if (this.info.prev) {
+      this.currentPage--;
+      this.loadCharacters(this.currentPage);
+    }
+  }
 }
